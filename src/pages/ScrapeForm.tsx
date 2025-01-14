@@ -20,7 +20,10 @@ export function ScrapeForm({ onScrapedContent }: ScrapeFormProps) {
     setIsLoading(true);
     setError(null);
 
-    const scrapingAntApiKey = process.env.REACT_APP_SCRAPINGANT_API_KEY;
+   // const scrapingAntApiKey = process.env.REACT_APP_SCRAPINGANT_API_KEY;
+    const scrapingAntApiKey = '063e8ec436ac4f389163d98e028de25e';
+
+    
     if (!scrapingAntApiKey) {
       setError('ScrapingAnt API key is not set');
       setIsLoading(false);
