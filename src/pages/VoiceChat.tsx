@@ -1,4 +1,4 @@
-const USE_LOCAL_RELAY_SERVER_URL: string | undefined = void 0;
+const USE_LOCAL_RELAY_SERVER_URL: string | undefined = 'ws://localhost:8080';
 
 import { useEffect, useRef, useCallback, useState } from 'react';
 
@@ -17,15 +17,6 @@ type Props = {
 };
 
 export const VoiceChat: React.FC<Props> = ({ scrapedContent }) => {
-  const apiKey = USE_LOCAL_RELAY_SERVER_URL
-    ? ''
-    : localStorage.getItem('tmp::voice_api_key') ||
-      prompt('OpenAI API Key') ||
-      '';
-  if (apiKey !== '') {
-    localStorage.setItem('tmp::voice_api_key', apiKey);
-  }
-
   const instructions = `SYSTEM SETTINGS:
 ------
 INSTRUCTIONS:
@@ -64,8 +55,8 @@ ${scrapedContent}
       USE_LOCAL_RELAY_SERVER_URL
         ? { url: USE_LOCAL_RELAY_SERVER_URL }
         : {
-            apiKey: apiKey,
-            dangerouslyAllowAPIKeyInBrowser: true,
+            apiKey: '',
+            dangerouslyAllowAPIKeyInBrowser: false,
           }
     )
   );
@@ -82,15 +73,6 @@ ${scrapedContent}
 
   const [items, setItems] = useState<ItemType[]>([]);
   const [isConnected, setIsConnected] = useState(false);
-
-  const resetAPIKey = useCallback(() => {
-    const apiKey = prompt('OpenAI API Key');
-    if (apiKey !== null) {
-      localStorage.clear();
-      localStorage.setItem('tmp::voice_api_key', apiKey);
-      window.location.reload();
-    }
-  }, []);
 
   /**
    * Connect to conversation:
@@ -302,17 +284,7 @@ ${scrapedContent}
         <div className="content-title">
           <span>AI Voice Agent</span>
         </div>
-        <div className="content-api-key">
-          {!USE_LOCAL_RELAY_SERVER_URL && (
-            <Button
-              icon={Edit}
-              iconPosition="end"
-              buttonStyle="flush"
-              label={`api key: ${apiKey.slice(0, 3)}...`}
-              onClick={() => resetAPIKey()}
-            />
-          )}
-        </div>
+        <div className="content-api-key"></div>
       </div>
       <div className="content-main">
         <div className="content-logs">

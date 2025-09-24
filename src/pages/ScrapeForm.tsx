@@ -1,4 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ScrapeForm.scss';
 import { processHtmlContent } from '../utils/processHtmlContent';
 
@@ -7,6 +8,7 @@ interface ScrapeFormProps {
 }
 
 export function ScrapeForm({ onScrapedContent }: ScrapeFormProps) {
+  const navigate = useNavigate();
   const [url, setUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,28 +55,41 @@ export function ScrapeForm({ onScrapedContent }: ScrapeFormProps) {
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="url"
-          value={url}
-          onChange={handleUrlChange}
-          placeholder="Enter URL to scrape"
-          required
-          className="url-input"
-        />
-        <button type="submit" disabled={isLoading} className="submit-button">
-          {isLoading ? 'Scraping...' : 'Scrape'}
-        </button>
-      </form>
+    <div className="scrape-form">
+      <h1>AI Voice Assistant</h1>
+      <p>Scrape a website and chat with an AI about it using voice!</p>
+      
+      <div className="form-options">
+        <div className="option">
+          <h2>Option 1: Website Analysis</h2>
+          <p>Enter a website URL to analyze and discuss with AI</p>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="url"
+              value={url}
+              onChange={handleUrlChange}
+              placeholder="Enter website URL..."
+              required
+            />
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Scraping...' : 'Start Voice Chat'}
+            </button>
+          </form>
+        </div>
+        
+        <div className="option">
+          <h2>Option 2: AI Persona Chat</h2>
+          <p>Choose from pre-configured AI personas for specialized conversations</p>
+          <button 
+            className="prompt-library-btn"
+            onClick={() => navigate('/prompt-library')}
+          >
+            Browse AI Personas
+          </button>
+        </div>
+      </div>
 
-      {error && <p className="error-message">{error}</p>}
-
-      {!error && (
-        <p className="instruction">
-          Enter a URL and click 'Scrape' to get started.
-        </p>
-      )}
+      {error && <div className="error">{error}</div>}
     </div>
   );
 }

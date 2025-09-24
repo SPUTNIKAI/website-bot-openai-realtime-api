@@ -1,0 +1,15 @@
+# Project Intelligence (.cursor/rules)
+
+## Memory Bank Workflow
+- Всегда читать все файлы `memory-bank/` перед началом работы.
+- Обновлять `activeContext.md` и `progress.md` после значимых изменений.
+- Фиксировать новые паттерны архитектуры в `systemPatterns.md`.
+
+## Паттерны проекта
+- `VoiceChat` использует `@openai/realtime-api-beta`, `WavRecorder`, `WavStreamPlayer`.
+- Ключ OpenAI хранится в `localStorage` (`tmp::voice_api_key`), есть быстрый сброс.
+- Роли (системные промпты) выбираются в `PromptLibrary` и сохраняются в `localStorage`.
+
+## Предпочтения
+- Документация на русском.
+- Короткие, практичные инструкции для запуска и отладки.

@@ -1,0 +1,140 @@
+.prompt-library {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    h1 {
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #666;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__categories {
+    .categories-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+
+      .category-button {
+        padding: 0.5rem 1rem;
+        border: 2px solid #ddd;
+        background: white;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          border-color: #007bff;
+        }
+
+        &.active {
+          background: #007bff;
+          color: white;
+          border-color: #007bff;
+        }
+      }
+    }
+  }
+
+  &__prompts {
+    .prompts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+
+      .prompt-card {
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          border-color: #007bff;
+          transform: translateY(-2px);
+        }
+
+        &.selected {
+          border-color: #007bff;
+          background: #f8f9ff;
+        }
+
+        h4 {
+          margin: 0 0 0.5rem 0;
+          color: #333;
+        }
+
+        p {
+          margin: 0 0 0.5rem 0;
+          color: #666;
+          font-size: 0.9rem;
+        }
+
+        &__category {
+          font-size: 0.8rem;
+          color: #999;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  &__selected {
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: #f8f9ff;
+
+    h3 {
+      margin: 0 0 1rem 0;
+      color: #333;
+    }
+
+    p {
+      margin: 0 0 1rem 0;
+      color: #666;
+    }
+
+    .prompt-preview {
+      margin-bottom: 1.5rem;
+
+      h4 {
+        margin: 0 0 0.5rem 0;
+        color: #333;
+        font-size: 0.9rem;
+      }
+
+      .prompt-text {
+        background: #f5f5f5;
+        padding: 1rem;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 0.8rem;
+        color: #555;
+        max-height: 100px;
+        overflow-y: auto;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+  }
+} 
