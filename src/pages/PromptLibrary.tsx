@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../components/button/Button';
+import { Button } from '../components/ui/button';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/card';
 import './PromptLibrary.scss';
 
 enum PromptCategory {
@@ -191,12 +192,12 @@ export const PromptLibrary: React.FC = () => {
         <div className="prompt-library__categories">
           <h3>Категории</h3>
           <div className="categories-grid">
-            <button 
-              className={`category-button ${!selectedCategory ? 'active' : ''}`}
+            <Button 
+              className={!selectedCategory ? 'active' : ''}
               onClick={() => setSelectedCategory(null)}
             >
               Все
-            </button>
+            </Button>
             {categories.map(category => {
               const categoryLabels = {
                 [PromptCategory.THERAPY]: 'Терапия',
@@ -208,13 +209,13 @@ export const PromptLibrary: React.FC = () => {
               };
               
               return (
-                <button
+                <Button
                   key={category}
-                  className={`category-button ${selectedCategory === category ? 'active' : ''}`}
+                  className={selectedCategory === category ? 'active' : ''}
                   onClick={() => setSelectedCategory(category)}
                 >
                   {categoryLabels[category]}
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -225,47 +226,45 @@ export const PromptLibrary: React.FC = () => {
           <h3>Доступные роли</h3>
           <div className="prompts-grid">
             {filteredPrompts.map(prompt => (
-              <div 
+              <Card 
                 key={prompt.id}
                 className={`prompt-card ${selectedPrompt?.id === prompt.id ? 'selected' : ''}`}
                 onClick={() => setSelectedPrompt(prompt)}
               >
-                <h4>{prompt.title}</h4>
-                <p>{prompt.description}</p>
-                <span className="prompt-card__category">
-                  {prompt.category}
-                </span>
-              </div>
+                <CardHeader>
+                  <CardTitle>{prompt.title}</CardTitle>
+                  <CardDescription>{prompt.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <span className="prompt-card__category">{prompt.category}</span>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
 
         {/* Панель выбранного промпта */}
         {selectedPrompt && (
-          <div className="prompt-library__selected">
-            <h3>Выбранная роль: {selectedPrompt.title}</h3>
-            <p>{selectedPrompt.description}</p>
-            
-            <div className="prompt-preview">
-              <h4>Системный промпт (превью):</h4>
-              <div className="prompt-text">
-                {selectedPrompt.systemPrompt.substring(0, 200)}...
+          <Card className="prompt-library__selected">
+            <CardHeader>
+              <CardTitle>Выбранная роль: {selectedPrompt.title}</CardTitle>
+              <CardDescription>{selectedPrompt.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="prompt-preview">
+                <h4>Системный промпт (превью):</h4>
+                <div className="prompt-text">
+                  {selectedPrompt.systemPrompt.substring(0, 200)}...
+                </div>
               </div>
-            </div>
-
-            <div className="prompt-library__actions">
-              <Button
-                label="Начать чат"
-                onClick={handleStartChat}
-                buttonStyle="action"
-              />
-              <Button
-                label="Назад"
-                onClick={() => navigate('/')}
-                buttonStyle="regular"
-              />
-            </div>
-          </div>
+            </CardContent>
+            <CardFooter>
+              <div className="prompt-library__actions">
+                <Button onClick={handleStartChat}>Начать чат</Button>
+                <Button variant="secondary" onClick={() => navigate('/')}>Назад</Button>
+              </div>
+            </CardFooter>
+          </Card>
         )}
       </div>
     </div>

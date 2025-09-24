@@ -2,6 +2,9 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ScrapeForm.scss';
 import { processHtmlContent } from '../utils/processHtmlContent';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { Button } from '../components/ui/button';
 
 interface ScrapeFormProps {
   onScrapedContent: (content: string) => void;
@@ -64,28 +67,31 @@ export function ScrapeForm({ onScrapedContent }: ScrapeFormProps) {
           <h2>Option 1: Website Analysis</h2>
           <p>Enter a website URL to analyze and discuss with AI</p>
           <form onSubmit={handleSubmit}>
-            <input
+            <Label htmlFor="website-url">Website URL</Label>
+            <Input
+              id="website-url"
               type="url"
               value={url}
               onChange={handleUrlChange}
               placeholder="Enter website URL..."
               required
             />
-            <button type="submit" disabled={isLoading}>
+            <Button type="submit" disabled={isLoading}>
               {isLoading ? 'Scraping...' : 'Start Voice Chat'}
-            </button>
+            </Button>
           </form>
         </div>
         
         <div className="option">
           <h2>Option 2: AI Persona Chat</h2>
           <p>Choose from pre-configured AI personas for specialized conversations</p>
-          <button 
+          <Button 
             className="prompt-library-btn"
             onClick={() => navigate('/prompt-library')}
+            variant="secondary"
           >
             Browse AI Personas
-          </button>
+          </Button>
         </div>
       </div>
 

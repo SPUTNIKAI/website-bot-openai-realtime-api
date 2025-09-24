@@ -8,7 +8,7 @@ import { WavRecorder, WavStreamPlayer } from '../lib/wavtools/index.js';
 import { WavRenderer } from '../utils/wav_renderer';
 
 import { X, Edit, Zap } from 'react-feather';
-import { Button } from '../components/button/Button';
+import { Button } from '../components/ui/button';
 
 import './VoiceChat.scss';
 
@@ -350,14 +350,12 @@ ${scrapedContent}
           )}
           <div className="content-actions">
             <Button
-              label={isConnected ? 'Disconnect' : 'Connect'}
-              iconPosition={isConnected ? 'end' : 'start'}
-              icon={isConnected ? X : Zap}
-              buttonStyle={isConnected ? 'regular' : 'action'}
               onClick={
                 isConnected ? disconnectConversation : connectConversation
               }
-            />
+            >
+              {isConnected ? 'Disconnect' : 'Connect'}
+            </Button>
           </div>
         </div>
       </div>
